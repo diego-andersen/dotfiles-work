@@ -4,7 +4,7 @@ export PATH=$HOME/bin:$PATH
 # Don't use oh-my-zsh on TTY (.psf fonts can't render most things)
 if [ "$TERM" != "linux" ]; then
     # Path to oh-my-zsh installation.
-    export ZSH="$ZDOTDIR/.oh-my-zsh"
+    export ZSH="$ZDOTDIR/ohmyzsh"
 
     # Oh-my-zsh theme
     ZSH_THEME="spaceship"
