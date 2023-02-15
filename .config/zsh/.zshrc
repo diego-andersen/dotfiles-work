@@ -4,11 +4,11 @@ export PATH=$HOME/bin:$PATH
 # Don't use oh-my-zsh on TTY (.psf fonts can't render most things)
 if [ "$TERM" != "linux" ]; then
     # Path to oh-my-zsh installation.
-    export ZSH="/home/diego/.oh-my-zsh"
+    export ZSH="$ZDOTDIR/.oh-my-zsh"
 
     # Oh-my-zsh theme
     ZSH_THEME="spaceship"
-    source $HOME/.config/zsh/spaceship_prompt
+    source $ZDOTDIR/spaceship_prompt
 
     # Plugins
     plugins=(
@@ -37,4 +37,4 @@ fi
 export BAT_THEME=ansi
 
 # Aliases
-source $HOME/.config/zsh/aliases
+source $ZDOTDIR/aliases
