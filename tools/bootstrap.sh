@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
 # Bootstrap script to install dotfiles
 
@@ -30,7 +30,7 @@ log_task() {
     log_blue "$@"
 }
 
-log_manual_action() {
+log_input() {
     log_yellow "$@"
 }
 
@@ -49,7 +49,7 @@ sudo() {
         "$@"
     else
         if ! command sudo --non-interactive true 2>/dev/null; then
-            log_manual_action "Permission required, please enter your password below"
+            log_input "Permission required, please enter your password below"
             command sudo --validate
         fi
         command sudo "$@"
@@ -118,7 +118,7 @@ export ZDOTDIR="$HOME/.config/zsh"
 export HISTFILE="$HOME/.local/share/zsh/history"
 
 # Make histfile parent directory because zsh won't
-if [ ! -z "$HISTFILE" ]; then
+if [ -n "$HISTFILE" ]; then
     log_task "Creating \$HISTFILE parent directory: ${HISTFILE%/*}"
     mkdir -p "${HISTFILE%/*}"
 fi
@@ -156,3 +156,10 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" \
 
 log_task "Switching default shell to zsh"
 sudo chsh -s $(command -v zsh) $USER
+
+# Start zsh if not over ssh
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    log_input "You're connected over ssh. Please disconnect and reconnect to log into zsh."
+else
+    exec zsh -l
+fi
