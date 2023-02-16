@@ -18,8 +18,8 @@ log_red() {
     log_color "0;31" "$@"
 }
 
-log_green() {
-    log_color "0;32" "$@"
+log_yellow() {
+    log_color "0;33" "$@"
 }
 
 log_blue() {
@@ -27,11 +27,11 @@ log_blue() {
 }
 
 log_task() {
-    log_green "$@"
+    log_blue "$@"
 }
 
 log_manual_action() {
-    log_blue "$@"
+    log_yellow "$@"
 }
 
 log_error() {
@@ -112,8 +112,10 @@ sudo cp $HOME/.config/zsh/zshenv /etc/zsh/zshenv
 sudo chown root:root /etc/zsh/zshenv
 sudo chmod 644 /etc/zsh/zshenv
 
-# Load zshenv variables to make them available
-. /etc/zsh/zshenv
+# Set zshenv variables here to keep this script POSIX-compliant
+# as /etc/zsh/zshenv contains [[ ... ]] conditionals
+export ZDOTDIR="$HOME/.config/zsh"
+export HISTFILE="$HOME/.local/share/zsh/history"
 
 # Make histfile parent directory because zsh won't
 if [ ! -z "$HISTFILE" ]; then
@@ -154,5 +156,3 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" \
 
 log_task "Switching default shell to zsh"
 sudo chsh -s $(command -v zsh) $USER
-
-exec zsh -l
