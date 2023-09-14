@@ -8,7 +8,7 @@ if [ "$TERM" != "linux" ]; then
 
     # Oh-my-zsh theme
     ZSH_THEME="spaceship"
-    source $ZDOTDIR/spaceship_prompt
+    source $ZDOTDIR/spaceship.zsh
 
     # Plugins
     plugins=(
@@ -38,3 +38,6 @@ export BAT_THEME=ansi
 
 # Aliases
 source $ZDOTDIR/aliases
+
+# Env variables
+source $ZDOTDIR/env_variables
